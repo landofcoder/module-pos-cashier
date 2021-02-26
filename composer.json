@@ -1,0 +1,22 @@
+{
+    "name": "lof/module-cashier",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@landofcoder.com",
+            "name": "landofcoder"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Lof\\Cashier\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

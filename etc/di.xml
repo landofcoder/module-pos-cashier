@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_Cashier
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Lof\Cashier\Api\CashierRepositoryInterface" type="Lof\Cashier\Model\CashierRepository" />
+	<preference for="Lof\Cashier\Api\Data\CashierInterface" type="Lof\Cashier\Model\Cashier" />
+
+	<virtualType name="Lof\Cashier\Model\ResourceModel\Cashier\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">lof_pos_cashier</argument>
+			<argument name="resourceModel" xsi:type="string">Lof\Cashier\Model\ResourceModel\Cashier\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="lof_cashier_listing_data_source" xsi:type="string">Lof\Cashier\Model\ResourceModel\Cashier\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="lof_cashieruser_listing_data_source" xsi:type="string">Lof\Cashier\Model\ResourceModel\CashierUser\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<virtualType name="Lof\Cashier\Model\ResourceModel\CashierUser\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">lof_pos_cashier_user</argument>
+			<argument name="resourceModel" xsi:type="string">Lof\Cashier\Model\ResourceModel\CashierUser</argument>
+		</arguments>
+	</virtualType>
+</config>

@@ -1,0 +1,26 @@
+{
+    "lof_pos_cashier": {
+        "column": {
+            "cashier_id": true,
+            "firstname": true,
+            "lastname": true,
+            "email": true,
+            "cashier_phone": true,
+            "image": true,
+            "outlet_id": true,
+            "user_cart_item_list": true,
+            "cart_item_id": true,
+            "is_login": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "lof_pos_cashier_user": {
+        "column": {
+            "cashier_id": true,
+            "user_id": true
+        }
+    }
+}

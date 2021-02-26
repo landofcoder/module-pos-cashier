@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_Cashier
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table comment="lof_pos_cashier Table" engine="innodb" name="lof_pos_cashier" resource="default">
+		<column xsi:type="smallint" name="cashier_id" nullable="false" identity="true" padding="6" unsigned="false" comment="Entity Id"/>
+
+		<column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="First Name"/>
+		<column xsi:type="varchar" name="lastname" nullable="false" length="255" comment="Last Name"/>
+		<column xsi:type="varchar" name="email" nullable="false" length="255" comment="Cashier Email"/>
+		<column xsi:type="varchar" name="cashier_phone" nullable="false" length="255" comment="Cashier Phone"/>
+		<column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
+		<column xsi:type="int" name="outlet_id" padding="10" unsigned="true" nullable="true" identity="false"/>
+		<column xsi:type="varchar" name="user_cart_item_list" nullable="true" length="255" comment="User Cart Item List"/>
+		<column xsi:type="smallint" name="cart_item_id" default="0" nullable="false" unsigned="true"/>
+		<column xsi:type="int" name="is_login" default="0" unsigned="true" nullable="false" comment = "Is Cashier Login"/>
+		<column xsi:type="smallint" name="status" padding="10" nullable="false"/>
+
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="cashier_id"/>
+		</constraint>
+	</table>
+<!--	create table lof_pos_cashier_user-->
+	<table comment="lof_pos_cashier_user Table" engine="innodb" name="lof_pos_cashier_user" resource="default">
+		<column xsi:type="smallint" name="cashier_user_id" nullable="false" identity="true" padding="6" unsigned="false" comment="Entity Id"/>
+		<column xsi:type="smallint" name="cashier_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Cashier ID"/>
+		<column xsi:type="int" name="user_id" padding="10" unsigned="true" nullable="true" identity="false" comment="User ID"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="cashier_user_id"/>
+		</constraint>
+	</table>
+</schema>
