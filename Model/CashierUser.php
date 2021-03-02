@@ -21,8 +21,17 @@
 
 namespace Lof\Cashier\Model;
 
-class CashierUser extends \Magento\Framework\Model\AbstractModel
+use Magento\Framework\Model\AbstractModel;
+
+/**
+ * Class CashierUser
+ * @package Lof\Cashier\Model
+ */
+class CashierUser extends AbstractModel
 {
+    /**
+     *
+     */
     public function _construct()
     {
         $this->_init("Lof\Cashier\Model\ResourceModel\CashierUser");

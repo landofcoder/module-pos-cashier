@@ -23,11 +23,27 @@ namespace Lof\Cashier\Controller\Adminhtml\Cashier;
 
 use Magento\Backend\App\Action;
 
+/**
+ * Class Delete
+ * @package Lof\Cashier\Controller\Adminhtml\Cashier
+ */
 class Delete extends \Magento\Backend\App\Action
 {
+    /**
+     * @var \Lof\Cashier\Model\CashierFactory
+     */
     protected $cashierFactory;
+    /**
+     * @var \Magento\User\Model\UserFactory
+     */
     protected $userFactory;
 
+    /**
+     * Delete constructor.
+     * @param Action\Context $context
+     * @param \Lof\Cashier\Model\CashierFactory $cashierFactory
+     * @param \Magento\User\Model\UserFactory $userFactory
+     */
     public function __construct(Action\Context $context,
                                 \Lof\Cashier\Model\CashierFactory $cashierFactory,
                                 \Magento\User\Model\UserFactory $userFactory)

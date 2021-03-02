@@ -22,6 +22,8 @@
 namespace Lof\Cashier\Model;
 
 use Lof\Cashier\Api\CashierRepositoryInterface;
+use Magento\Authorization\Model\UserContextInterface;
+use Magento\User\Model\UserFactory;
 
 /**
  * Class CashierRepository
@@ -35,7 +37,7 @@ class CashierRepository implements CashierRepositoryInterface
     protected $cashierFactory;
 
     /**
-     * @var \Magento\Authorization\Model\UserContextInterface
+     * @var UserContextInterface
      */
     protected $_userContext;
 
@@ -49,18 +51,17 @@ class CashierRepository implements CashierRepositoryInterface
      */
     protected $cashierUserFactory;
 
-
     /**
      * @param CashierFactory $cashierFactory
-     * @param \Magento\Authorization\Model\UserContextInterface $userContext
-     * @param \Magento\User\Model\UserFactory $userFactory
-     * @param \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory
+     * @param UserContextInterface $userContext
+     * @param UserFactory $userFactory
+     * @param CashierUserFactory $cashierUserFactory
      */
     public function __construct(
         CashierFactory $cashierFactory,
-        \Magento\Authorization\Model\UserContextInterface $userContext,
-        \Magento\User\Model\UserFactory $userFactory,
-        \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory
+        UserContextInterface $userContext,
+        UserFactory $userFactory,
+        CashierUserFactory $cashierUserFactory
     )
     {
         $this->cashierFactory = $cashierFactory;
@@ -81,8 +82,7 @@ class CashierRepository implements CashierRepositoryInterface
         $cashierUserModel = $this->cashierUserFactory->create();
         $cashierModel = $this->cashierFactory->create();
         $cashier_id = $cashierUserModel->getCollection()->addFieldToFilter('user_id', $user_id)->getFirstItem()->getCashier_id();
-        $dataCashier = $cashierModel->getCollection()
+        return $cashierModel->getCollection()
             ->addFieldToFilter('cashier_id', ['eq' => $cashier_id])->getFirstItem();
-        return $dataCashier;
     }
 }

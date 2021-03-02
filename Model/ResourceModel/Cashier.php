@@ -21,7 +21,14 @@
 
 namespace Lof\Cashier\Model\ResourceModel;
 
-class Cashier extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+/**
+ * Class Cashier
+ * @package Lof\Cashier\Model\ResourceModel
+ */
+class Cashier extends AbstractDb
 {
 
     /**
@@ -37,26 +44,37 @@ class Cashier extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     /**
      * Perform operations after object save
      *
-     * @param \Magento\Framework\Model\AbstractModel $object
+     * @param AbstractModel $object
      * @return $this
      */
-    protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
+    protected function _afterSave(AbstractModel $object)
     {
         $userId = (array)$object->getUserId();
         $cashierId = (array)$object->getCashierId();
         $table = $this->getTable('lof_pos_cashier_user');
-        $delete = array_diff($userId, $cashierId);
-        if ($delete) {
-            $where = ['cashier_id = ?' => (int)$object->getCashierId()];
-            $this->getConnection()->delete($table, $where);
+        $where1 = ['cashier_id = ?' => (int)$object->getCashierId()];
+        if (!$userId) {
+            $this->getConnection()->delete($table, $where1);
         }
-        if ($cashierId && $userId) {
+        else if ($cashierId) {
             $data = ['cashier_id' => (int)$object->getCashierId(), 'user_id' => (int)$object->getUserId()];
-            $this->getConnection()->insertMultiple($table, $data);
+            $where2 = 'cashier_id = '.(int)$object->getCashierId();
+            $select = $this->getConnection()->select()->from($table, 'user_id')->where($where2);
+            $currentCashierUser = $this->getConnection()->fetchAll($select);
+            if (count($currentCashierUser)) {
+                $this->getConnection()->update($table, $data, $where1);
+            } else {
+                $this->getConnection()->insert($table, $data);
+            }
         }
         return parent::_afterSave($object);
     }
-    protected function _beforeDelete(\Magento\Framework\Model\AbstractModel $object)
+
+    /**
+     * @param AbstractModel $object
+     * @return Cashier
+     */
+    protected function _beforeDelete(AbstractModel $object)
     {
         $condition = ['cashier_id = ?' => (int)$object->getCashierId()];
 

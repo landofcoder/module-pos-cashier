@@ -21,8 +21,17 @@
 
 namespace Lof\Cashier\Model\ResourceModel;
 
-class CashierUser extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+/**
+ * Class CashierUser
+ * @package Lof\Cashier\Model\ResourceModel
+ */
+class CashierUser extends AbstractDb
 {
+    /**
+     *
+     */
     public function _construct()
     {
         $this->_init("lof_pos_cashier_user", "cashier_id");

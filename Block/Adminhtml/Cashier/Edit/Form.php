@@ -21,8 +21,16 @@
 
 namespace Lof\Cashier\Block\Adminhtml\Cashier\Edit;
 
+/**
+ * Class Form
+ * @package Lof\Cashier\Block\Adminhtml\Cashier\Edit
+ */
 class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {
+    /**
+     * @return Form
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     protected function _prepareForm()
     {
         $form = $this->_formFactory->create(

@@ -21,8 +21,12 @@
 
 namespace Lof\Cashier\Block\Adminhtml;
 
-use Lof\All\Model\Config;
+use Magento\Backend\Block\Template\Context;
 
+/**
+ * Class Menu
+ * @package Lof\Cashier\Block\Adminhtml
+ */
 class Menu extends \Magento\Backend\Block\Template
 {
     /**
@@ -38,15 +42,23 @@ class Menu extends \Magento\Backend\Block\Template
     protected $_template = 'Lof_All::menu.phtml';
 
 
-    public function __construct(\Magento\Backend\Block\Template\Context $context,
-                                array $data = []
-    )
-    {
+    /**
+     * Menu constructor.
+     * @param Context $context
+     * @param array $data
+     */
+    public function __construct(
+        Context $context,
+        array $data = []
+    ) {
         parent::__construct($context);
 
-    }//end __construct()
+    }
 
 
+    /**
+     * @return array|array[]|null
+     */
     public function getMenuItems()
     {
         if ($this->items === null) {

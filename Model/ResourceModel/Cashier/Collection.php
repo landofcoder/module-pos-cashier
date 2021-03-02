@@ -21,8 +21,15 @@
 
 namespace Lof\Cashier\Model\ResourceModel\Cashier;
 
+/**
+ * Class Collection
+ * @package Lof\Cashier\Model\ResourceModel\Cashier
+ */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    /**
+     * @var string
+     */
     protected $_idFieldName = 'cashier_id';
     /**
      * Define resource model

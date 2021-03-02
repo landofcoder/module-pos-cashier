@@ -32,13 +32,37 @@ interface CashierInterface
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
     const CASHIER_ID = 'cashier_id';
+    /**
+     *
+     */
     const FIRST_NAME = 'firstname';
+    /**
+     *
+     */
     const LAST_NAME = 'lastname';
+    /**
+     *
+     */
     const EMAIL = 'email';
+    /**
+     *
+     */
     const CASHIER_PHONE = 'cashier_phone';
+    /**
+     *
+     */
     const IMAGE = 'image';
+    /**
+     *
+     */
     const OUTLET_ID = 'outlet_id';
+    /**
+     *
+     */
     const USER_ID = 'user_id';
+    /**
+     *
+     */
     const STATUS = 'status';
 
     /**#@-*/

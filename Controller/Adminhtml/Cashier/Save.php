@@ -21,46 +21,59 @@
 
 namespace Lof\Cashier\Controller\Adminhtml\Cashier;
 
+use Lof\Cashier\Model\CashierFactory;
+use Lof\Cashier\Model\CashierUserFactory;
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\Helper\Js;
+use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\Read;
 
-class Save extends \Magento\Backend\App\Action
+/**
+ * Class Save
+ * @package Lof\Cashier\Controller\Adminhtml\Cashier
+ */
+class Save extends Action
 {
 
     /**
-     * @var \Magento\Framework\Filesystem
+     * @var Filesystem
      */
     protected $_fileSystem;
 
     /**
-     * @var \Magento\Backend\Helper\Js
+     * @var Js
      */
     protected $jsHelper;
 
     /**
      * User model factory
      *
-     * @var \Lof\Cashier\Model\CashierFactory
+     * @var CashierFactory
      */
     protected $_cashierFactory;
 
     /**
-     * @var \Lof\Cashier\Model\CashierUserFactory
+     * @var CashierUserFactory
      */
     protected $_cashierUserFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context
-     * @param \Magento\Framework\ObjectManagerInterface
-     * @param \Magento\Framework\Filesystem
-     * @param \Magento\Backend\Helper\Js
-     * @param \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory
+     * @param Context $context
+     * @param Filesystem $filesystem
+     * @param Js $jsHelper
+     * @param CashierFactory $cashierFactory
+     * @param CashierUserFactory $cashierUserFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Filesystem $filesystem,
-        \Magento\Backend\Helper\Js $jsHelper,
-        \Lof\Cashier\Model\CashierFactory $cashierFactory,
-        \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory
+        Context $context,
+        Filesystem $filesystem,
+        Js $jsHelper,
+        CashierFactory $cashierFactory,
+        CashierUserFactory $cashierUserFactory
     )
     {
         $this->_fileSystem = $filesystem;
@@ -81,7 +94,7 @@ class Save extends \Magento\Backend\App\Action
     /**
      * Save action
      *
-     * @return \Magento\Framework\Controller\ResultInterface
+     * @return ResultInterface
      */
     public function execute()
     {
@@ -90,7 +103,7 @@ class Save extends \Magento\Backend\App\Action
         if (array_key_exists('form_key', $data)) {
             unset($data['form_key']);
         }
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
             $data['username'] = $data['email'];
@@ -110,7 +123,7 @@ class Save extends \Magento\Backend\App\Action
                 }
             }
 
-            /** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
+            /** @var Read $mediaDirectory */
             $mediaDirectory = $this->_objectManager->get('Magento\Framework\Filesystem')
                 ->getDirectoryRead(DirectoryList::MEDIA);
             $mediaFolder = 'lof/cashier/';
@@ -154,6 +167,10 @@ class Save extends \Magento\Backend\App\Action
         return $resultRedirect->setPath('*/*/');
     }
 
+    /**
+     * @param string $fieldId
+     * @return \Magento\Framework\Controller\Result\Redirect|string|void
+     */
     public function uploadImage($fieldId = 'image')
     {
         $resultRedirect = $this->resultRedirectFactory->create();

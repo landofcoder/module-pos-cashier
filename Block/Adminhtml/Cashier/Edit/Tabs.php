@@ -21,6 +21,10 @@
 
 namespace Lof\Cashier\Block\Adminhtml\Cashier\Edit;
 
+/**
+ * Class Tabs
+ * @package Lof\Cashier\Block\Adminhtml\Cashier\Edit
+ */
 class Tabs extends \Magento\Backend\Block\Widget\Tabs
 {
     /**

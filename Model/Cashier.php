@@ -22,28 +22,42 @@
 namespace Lof\Cashier\Model;
 
 use Lof\Cashier\Api\Data\CashierInterface;
+use Lof\Cashier\Model\ResourceModel\Cashier\Collection;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 
-class Cashier extends \Magento\Framework\Model\AbstractModel implements CashierInterface
+/**
+ * Class Cashier
+ * @package Lof\Cashier\Model
+ */
+class Cashier extends AbstractModel implements CashierInterface
 {
+    /**
+     * @var string
+     */
     protected $_eventPrefix = 'lof_pos_cashier';
     /**
      * Cashier Statuses
      */
     const STATUS_ENABLED = 1;
+    /**
+     *
+     */
     const STATUS_DISABLED = 0;
 
     /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Lof\Cashier\Model\ResourceModel\Cashier $resource
-     * @param \Lof\Cashier\Model\ResourceModel\Cashier\Collection $resourceCollection
+     * @param Context $context
+     * @param Registry $registry
+     * @param ResourceModel\Cashier $resource
+     * @param Collection $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Lof\Cashier\Model\ResourceModel\Cashier $resource,
-        \Lof\Cashier\Model\ResourceModel\Cashier\Collection $resourceCollection,
+        Context $context,
+        Registry $registry,
+        ResourceModel\Cashier $resource,
+        Collection $resourceCollection,
         array $data = []
     )
     {
@@ -55,8 +69,7 @@ class Cashier extends \Magento\Framework\Model\AbstractModel implements CashierI
      */
     public function getDataModel()
     {
-        $cashierData = $this->getData();
-        return $cashierData;
+        return $this->getData();
     }
 
     /**

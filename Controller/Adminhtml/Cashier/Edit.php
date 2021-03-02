@@ -23,6 +23,10 @@ namespace Lof\Cashier\Controller\Adminhtml\Cashier;
 
 use Magento\Backend\App\Action;
 
+/**
+ * Class Edit
+ * @package Lof\Cashier\Controller\Adminhtml\Cashier
+ */
 class Edit extends Action
 {
     /**
