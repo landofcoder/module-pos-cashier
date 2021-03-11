@@ -26,7 +26,7 @@
     <route url="/V1/lof-cashier/" method="GET">
         <service class="Lof\Cashier\Api\CashierRepositoryInterface" method="getCashierInformation"/>
         <resources>
-            <resource ref="Lof_Cashier::Cashier"/>
+            <resource ref="Lof_Cashier::Cashier_view"/>
         </resources>
     </route>
 </routes>

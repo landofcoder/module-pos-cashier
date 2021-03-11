@@ -21,6 +21,9 @@
 
 namespace Lof\Cashier\Api;
 
+use Lof\Cashier\Api\Data\CashierInterface;
+use Magento\Framework\Exception\LocalizedException;
+
 /**
  * Lof cashier CRUD interface.
  * @api
@@ -28,11 +31,9 @@ namespace Lof\Cashier\Api;
  */
 interface CashierRepositoryInterface
 {
+
     /**
-     * Retrieve cashier.
-     *
-     * @return \Lof\Cashier\Api\Data\CashierInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return mixed
      */
     public function getCashierInformation();
 }

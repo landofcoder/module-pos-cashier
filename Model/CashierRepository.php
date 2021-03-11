@@ -23,6 +23,10 @@ namespace Lof\Cashier\Model;
 
 use Lof\Cashier\Api\CashierRepositoryInterface;
 use Magento\Authorization\Model\UserContextInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
+use Magento\Store\Api\StoreManagementInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\User\Model\UserFactory;
 
 /**
@@ -50,39 +54,49 @@ class CashierRepository implements CashierRepositoryInterface
      * @var $userFactory
      */
     protected $cashierUserFactory;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $_storeManager;
 
     /**
      * @param CashierFactory $cashierFactory
      * @param UserContextInterface $userContext
      * @param UserFactory $userFactory
      * @param CashierUserFactory $cashierUserFactory
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         CashierFactory $cashierFactory,
         UserContextInterface $userContext,
         UserFactory $userFactory,
-        CashierUserFactory $cashierUserFactory
+        CashierUserFactory $cashierUserFactory,
+        StoreManagerInterface $storeManager
     )
     {
         $this->cashierFactory = $cashierFactory;
         $this->_userContext = $userContext;
         $this->userFactory = $userFactory;
         $this->cashierUserFactory = $cashierUserFactory;
+        $this->_storeManager = $storeManager;
     }
 
+
     /**
-     * get Cashier Information
-     *
-     * @return Cashier
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return array|mixed|null
+     * @throws NoSuchEntityException
      */
     public function getCashierInformation()
     {
         $user_id = $this->_userContext->getUserId();
         $cashierUserModel = $this->cashierUserFactory->create();
         $cashierModel = $this->cashierFactory->create();
-        $cashier_id = $cashierUserModel->getCollection()->addFieldToFilter('user_id', $user_id)->getFirstItem()->getCashier_id();
-        return $cashierModel->getCollection()
-            ->addFieldToFilter('cashier_id', ['eq' => $cashier_id])->getFirstItem();
+        $cashier_id = $cashierUserModel->getCollection()->addFieldToFilter('user_id', $user_id)->getFirstItem()->getCashierId();
+        $cashierModel->load($cashier_id);
+        $data = $cashierModel->getData();
+        $data['image'] = $this->_storeManager->getStore()->getBaseUrl(
+                UrlInterface::URL_TYPE_MEDIA
+            ) . $cashierModel->getImage();
+        return $data;
     }
 }
