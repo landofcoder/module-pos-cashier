@@ -21,6 +21,10 @@
 
 namespace Lof\Cashier\Block\Adminhtml\Cashier;
 
+/**
+ * Class Edit
+ * @package Lof\Cashier\Block\Adminhtml\Cashier
+ */
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
 {
     /**
@@ -109,6 +113,9 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
         return $this->_authorization->isAllowed($resourceId);
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->_eventManager->dispatch(

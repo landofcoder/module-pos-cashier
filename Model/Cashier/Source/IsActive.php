@@ -21,6 +21,8 @@
 
 namespace Lof\Cashier\Model\Cashier\Source;
 
+use Lof\Cashier\Model\Cashier;
+use Magento\Cms\Model\Page;
 use Magento\Framework\Data\OptionSourceInterface;
 
 /**
@@ -29,16 +31,16 @@ use Magento\Framework\Data\OptionSourceInterface;
 class IsActive implements OptionSourceInterface
 {
     /**
-     * @var \Magento\Cms\Model\Page
+     * @var Page
      */
     protected $lofCashier;
 
     /**
      * Constructor
      *
-     * @param \Magento\Cms\Model\Page $cmsPage
+     * @param Cashier $Cashier
      */
-    public function __construct(\Lof\Cashier\Model\Cashier $Cashier)
+    public function __construct(Cashier $Cashier)
     {
         $this->lofCashier = $Cashier;
     }

@@ -21,50 +21,70 @@
 
 namespace Lof\Cashier\Block\Adminhtml\Cashier\Edit\Tab;
 
-class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magento\Backend\Block\Widget\Tab\TabInterface
+use Lof\Cashier\Model\CashierUserFactory;
+use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Form\Generic;
+use Magento\Backend\Block\Widget\Tab\TabInterface;
+use Magento\Cms\Model\Page;
+use Magento\Cms\Model\Wysiwyg\Config;
+use Magento\Framework\Data\FormFactory;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Module\Manager;
+use Magento\Framework\Registry;
+use Magento\Store\Model\System\Store;
+use Magento\User\Model\ResourceModel\User\CollectionFactory;
+
+/**
+ * Class Main
+ * @package Lof\Cashier\Block\Adminhtml\Cashier\Edit\Tab
+ */
+class Main extends Generic implements TabInterface
 {
     /**
-     * @var \Magento\Store\Model\System\Store
+     * @var Store
      */
     protected $_systemStore;
 
     /**
-     * @var \Magento\Cms\Model\Wysiwyg\Config
+     * @var Config
      */
     protected $_wysiwygConfig;
 
     /**
-     * @var \Lof\Cashier\Model\CashierUserFactory
+     * @var CashierUserFactory
      */
     protected $_cashierUserFactory;
 
     /**
-     * @var \Magento\User\Model\ResourceModel\User\CollectionFactory
+     * @var CollectionFactory
      */
     protected $userCollectionFactory;
 
+    /**
+     * @var Manager
+     */
     protected $_moduleManager;
 
     /**
-     * @param \Magento\Backend\Block\Template\Context
-     * @param \Magento\Framework\Registry
-     * @param \Magento\Framework\Data\FormFactory
-     * @param \Magento\Store\Model\System\Store
-     * @param \Magento\Cms\Model\Wysiwyg\Config
-     * @param \Magento\User\Model\ResourceModel\User\CollectionFactory $userCollectionFactory
-     * @param \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory
-     * @param \Magento\Framework\Module\Manager $moduleManager
+     * @param Context $context
+     * @param Registry $registry
+     * @param FormFactory $formFactory
+     * @param Store $systemStore
+     * @param Config $wysiwygConfig
+     * @param CollectionFactory $userCollectionFactory
+     * @param CashierUserFactory $cashierUserFactory
+     * @param Manager $moduleManager
      * @param array
      */
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\Data\FormFactory $formFactory,
-        \Magento\Store\Model\System\Store $systemStore,
-        \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
-        \Magento\User\Model\ResourceModel\User\CollectionFactory $userCollectionFactory,
-        \Lof\Cashier\Model\CashierUserFactory $cashierUserFactory,
-        \Magento\Framework\Module\Manager $moduleManager,
+        Context $context,
+        Registry $registry,
+        FormFactory $formFactory,
+        Store $systemStore,
+        Config $wysiwygConfig,
+        CollectionFactory $userCollectionFactory,
+        CashierUserFactory $cashierUserFactory,
+        Manager $moduleManager,
         array $data = []
     )
     {
@@ -76,6 +96,10 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
+    /**
+     * @param $n
+     * @return string
+     */
     protected function _getSpaces($n)
     {
         $s = '';
@@ -91,6 +115,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
      *
      * @return $this
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @throws LocalizedException
      */
     protected function _prepareForm()
     {
@@ -99,7 +124,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             ['obj' => $this, 'ex' => 'Lof_Cashier']
         );
 
-        /* @var $model \Magento\Cms\Model\Page */
+        /* @var $model Page */
         $model = $this->_coreRegistry->registry('lof_cashier');
 
         /*
@@ -265,6 +290,10 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         return parent::_prepareForm();
     }
 
+    /**
+     * @param $moduleName
+     * @return bool
+     */
     public function isModuleEnabled($moduleName)
     {
         return $this->_moduleManager->isEnabled($moduleName);

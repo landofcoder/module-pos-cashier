@@ -21,8 +21,15 @@
 
 namespace Lof\Cashier\Model\ResourceModel\CashierUser;
 
+/**
+ * Class Collection
+ * @package Lof\Cashier\Model\ResourceModel\CashierUser
+ */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    /**
+     *
+     */
     public function _construct()
     {
         $this->_init("Lof\Cashier\Model\CashierUser", "Lof\Cashier\Model\ResourceModel\CashierUser");
