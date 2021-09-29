@@ -1,15 +1,17 @@
 {
-    "name": "lof/module-cashier",
-    "description": "",
+    "name": "landofcoder/module-cashier",
+    "description": "Magento 2 POS Cashier extension, manage cashier account for POS",
     "type": "magento2-module",
     "license": "proprietary",
     "authors": [
         {
             "email": "info@landofcoder.com",
-            "name": "landofcoder"
+            "name": "landofcoder",
+            "homepage": "https://landofcoder.com"
         }
     ],
     "minimum-stability": "dev",
+    "version":"1.0.0",
     "require": {},
     "autoload": {
         "psr-4": {
